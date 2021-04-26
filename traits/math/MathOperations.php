@@ -18,7 +18,7 @@ trait MathOperations {
 
   protected static function _divide($a, $b) {
     if ($b == 0) {
-      $this->error('Division by zero: ' . ($a . ' / ' . $b));
+      throw new Exception('Division by zero: ' . ($a . ' / ' . $b));
     }
 
     return $a / $b;
@@ -30,7 +30,7 @@ trait MathOperations {
 
   protected static function _reminder($a, $b) {
     if ($b == 0) {
-      $this->error('Reminder By Zero Exception: ' . $a . ' % ' . $b);
+      throw new Exception('Reminder By Zero Exception: ' . $a . ' % ' . $b);
     }
     return $a % $b;
   }
