@@ -1,9 +1,26 @@
 <?php 
 
-class Expression extends Format {
+require_once 'traits/math/Format.php';
+
+class Expression extends Calculator {
+  use Format;
 
   protected function findResult($e) {
     return $this->findWithParenthesesIncluded($e);
+  }
+
+  private function getMostNestedParentheses($expression) {
+    $firstClosingParenthesesIndex = strpos($expression, ')');
+    $lastOpeningParenthesesBeforeFirstClosingParentheses = null;
+
+    for ($i = $firstClosingParenthesesIndex; $i >= 0; $i--) {
+      if ($expression[$i] === '(') {
+        $lastOpeningParenthesesBeforeFirstClosingParentheses = $i;
+        break;
+      }
+    }
+
+    return [$lastOpeningParenthesesBeforeFirstClosingParentheses, $firstClosingParenthesesIndex];
   }
 
   private function findWithParenthesesIncluded($e) {
@@ -19,26 +36,12 @@ class Expression extends Format {
 
     $countOfParentheses /= 2;
 
-    $getTheMostNestedParentheses = function($expression) {
-      $firstClosingParenthesesIndex = strpos($expression, ')');
-      $lastOpeningParenthesesBeforeFirstClosingParentheses = null;
-
-      for ($i = $firstClosingParenthesesIndex; $i >= 0; $i--) {
-        if ($expression[$i] === '(') {
-          $lastOpeningParenthesesBeforeFirstClosingParentheses = $i;
-          break;
-        }
-      }
-
-      return [$lastOpeningParenthesesBeforeFirstClosingParentheses, $firstClosingParenthesesIndex];
-    };
-
     // While there is a pair of parenteses in [[ $e ]]
     // Extract the smaller expression from parentheses
     // Calculate it 
     // And then replace extracted expression with calculated result in [[ $e ]]
     while ($countOfParentheses--) {
-      [$a, $b] = $getTheMostNestedParentheses($result);
+      [$a, $b] = $this->getMostNestedParentheses($result);
       $subExpression = substr($result, $a, $b - $a + 1);
 
       $subExpressionResult = $this->findWithoutParentheses($subExpression);
@@ -51,7 +54,7 @@ class Expression extends Format {
   private function getFilteredSubExpression($e) {
     // ()
     if ($e === "()")  {
-      throw new Exception('Non-valid expression');
+      $this->error('Non-valid expression');
     }
 
     // (1 + 1) -> 1 + 1
@@ -60,7 +63,7 @@ class Expression extends Format {
     }
 
     if ($e[0] === '+' || $e[-1] === '-') {
-      throw new Exception('Non-valid expression: ' . $e);
+      $this->error('Non-valid expression: ' . $e);
     }
 
     if ($e[0] == '-') {
@@ -96,7 +99,7 @@ class Expression extends Format {
         }
 
         if (substr_count($cur, '.') > 1) {
-          throw new Exception('Invalid format: ' . $cur);
+          $this->error('Invalid format: ' . $cur);
         }
 
         $cur = (float) $cur;
@@ -110,7 +113,7 @@ class Expression extends Format {
     }
 
     if (substr_count($cur, '.') > 1) {
-      throw new Exception('Invalid format: ' . $cur);
+      $this->error('Invalid format: ' . $cur);
     }
 
     $cur = (float) $cur;
@@ -126,7 +129,7 @@ class Expression extends Format {
 
     [$numbers, $operations] = $this->divideExpressionIntoNumbersAndOperations($e);
 
-    foreach ($this->getLevels() as $operators) {
+    foreach ($this->getOperationLevels() as $operators) {
       foreach ($operations as $i => $operator) {
 
         if (!in_array($operator, $operators)) {

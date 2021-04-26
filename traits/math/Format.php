@@ -1,8 +1,8 @@
 <?php 
 
-class Format extends Calculator {
-  private const _numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  private const _parentheses = ['(', ')'];
+trait Format {
+  private $_numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  private $_parentheses = ['(', ')'];
 
   private static function _in($l, $arr) {
     return in_array($l, $arr);
@@ -21,7 +21,7 @@ class Format extends Calculator {
   }
 
   protected function getNumbers() {
-    return self::_numbers;
+    return $this->_numbers;
   }
 
   protected function getOperators() {
@@ -29,7 +29,7 @@ class Format extends Calculator {
   }
 
   protected function getParentheses() {
-    return self::_parentheses;
+    return $this->_parentheses;
   }
 
   protected static function isValidCharacter($letter) {
