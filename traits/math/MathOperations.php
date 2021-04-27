@@ -34,4 +34,8 @@ trait MathOperations {
     }
     return $a % $b;
   }
+
+  protected static function _and($a, $b) {
+    return $a & $b;
+  }
 }

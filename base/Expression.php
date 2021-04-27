@@ -102,6 +102,10 @@ class Expression extends Calculator {
           $this->error('Invalid format: ' . $cur);
         }
 
+        if ($cur === '') {
+          $this->error('Error in validation, expression: ' . $e);
+        }
+
         $cur = (float) $cur;
         $numbers[] = $cur;
         $operations[] = $letter;
@@ -114,6 +118,10 @@ class Expression extends Calculator {
 
     if (substr_count($cur, '.') > 1) {
       $this->error('Invalid format: ' . $cur);
+    }
+
+    if ($cur === '') {
+      $this->error('Error in validation, expression: ' . $e);
     }
 
     $cur = (float) $cur;

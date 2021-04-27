@@ -17,6 +17,7 @@ class Calculator extends Application {
     $this->addOperator('/', 2, '_divide');
     $this->addOperator('^', 3, '_power');
     $this->addOperator('%', 4, '_reminder');
+    $this->addOperator('&', 3, '_and');
   }
 
   private function addOperator($type, $weight, $callback) {
