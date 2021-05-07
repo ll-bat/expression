@@ -1,10 +1,12 @@
 <?php 
 
+
+
 trait Format {
   private $_numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   private $_parentheses = ['(', ')'];
 
-  private static function _in($l, $arr) {
+  private static function _in($l, $arr) { 
     return in_array($l, $arr);
   }
 
@@ -18,6 +20,14 @@ trait Format {
 
   protected function isParentheses($letter) {
     return self::_in($letter, $this->getParentheses());
+  }
+
+  protected function isOpeningParentheses($letter) {
+    return $letter === '(';
+  }
+
+  protected function isClosingParentheses($letter) {
+    return $letter === ')';
   }
 
   protected function getNumbers() {

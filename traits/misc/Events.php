@@ -1,7 +1,5 @@
 <?php
 
-
-
 trait Events {
   private $_events = [];
 

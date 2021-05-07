@@ -1,12 +1,13 @@
 <?php 
 
 require_once 'base/Calculator.php';
-require_once 'base/Expression.php';
+// require_once 'base/modules/v1/Logic.php';
+require_once 'base/modules/v2/Logic.php';
 require_once 'helpers/StringHelper.php';
 require_once 'traits/validators/ExpressionValidator.php';
 
 
-class MathExpression extends Expression {
+class MathExpression extends Logic {
 
   use ExpressionValidator;
 

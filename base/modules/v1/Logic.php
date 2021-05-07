@@ -1,8 +1,9 @@
 <?php 
 
 require_once 'traits/math/Format.php';
+require_once 'base/Calculator.php';
 
-class Expression extends Calculator {
+class Logic extends Calculator {
   use Format;
 
   protected function findResult($e) {
