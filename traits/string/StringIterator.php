@@ -16,7 +16,7 @@ trait StringIterator {
     }
 
     if ($this->cur >= $this->length) {
-      return false;
+      return null;
     }
 
     return $this->target[$this->cur++];
@@ -30,7 +30,7 @@ trait StringIterator {
     return $this->target[$this->cur - 2];
   }
 
-  public function getNextCharacter() {
+  public function getNextLetter() {
     if ($this->cur >= $this->length) {
       return null;
     }
