@@ -1,4 +1,6 @@
-# This is very simple Math Expression Calculator 
-##### Give it a some string that you want to evaluate as a mathematical expression and it will give you the answer
+# This is a simple Math Expression Evaluator 
 ##### Currently, it supports following operations: +, -, *, /, ^ (power), %, &
-###### This is made just for fun :((
+#### samples 
+ - '2 + 2' = 4
+ - '2 * 2' = 4 
+ - '2 + 3 * 2 / 6' = 3
